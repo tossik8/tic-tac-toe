@@ -1,6 +1,5 @@
 #include <iostream>
 
-
 int acceptInput(char* squares) {
 	std::cout << "\t\t\t\t\tEnter a number: ";
 	int res;
@@ -27,7 +26,6 @@ bool checkVerticalWin(char* squares) {
 }
 
 bool checkHorizontalWin(char* squares) {
-
 	return squares[0] == squares[1] && squares[0] == squares[2] ||
 		squares[3] == squares[4] && squares[3] == squares[5] ||
 		squares[6] == squares[7] && squares[6] == squares[8];
@@ -43,7 +41,15 @@ bool checkAvailableSquares(char* squares) {
 	return false;
 }
 
-void printGrid(char* squares) {
+void printGrid(char* squares, bool first) {
+	system("cls");
+	std::cout << "\t\t\t\t\tHello, you've started Tic Tac Toe\n\n";
+	if (first) {
+		std::cout << "\t\t\t\t\tPlayer's with 'X' turn\n\n\n";
+	}
+	else {
+		std::cout << "\t\t\t\t\tPlayer's with 'O' turn\n\n\n";
+	}
 	std::cout << 
 		   "\t\t\t\t\t    |    |    \n"
 		<< "\t\t\t\t\t  " << squares[0] << " |  " << squares[1] << " |  " << squares[2] << " \n"
@@ -56,21 +62,26 @@ void printGrid(char* squares) {
 		<< "\t\t\t\t\t    |    |    \n\n";
 }
 
+void printGrid(char* squares) {
+	system("cls");
+	std::cout <<
+		"\n\n\n\n\n\t\t\t\t\t    |    |    \n"
+		<< "\t\t\t\t\t  " << squares[0] << " |  " << squares[1] << " |  " << squares[2] << " \n"
+		<< "\t\t\t\t\t____|____|____\n"
+		<< "\t\t\t\t\t    |    |    \n"
+		<< "\t\t\t\t\t  " << squares[3] << " |  " << squares[4] << " |  " << squares[5] << " \n"
+		<< "\t\t\t\t\t____|____|____\n"
+		<< "\t\t\t\t\t    |    |    \n"
+		<< "\t\t\t\t\t  " << squares[6] << " |  " << squares[7] << " |  " << squares[8] << " \n"
+		<< "\t\t\t\t\t    |    |    \n\n";
+}
+
 int main() {
 	using std::cout;
-	cout << "\t\t\t\t\tHello, you've started Tic Tac Toe\n\n";
 	char squares[9] = { '1','2','3','4','5','6', '7', '8', '9' };
 	bool first = true;
 	while (!checkWin(squares) && checkAvailableSquares(squares)) {
-		if (first) {
-			cout << "\t\t\t\t\tPlayer's with 'X' turn\n\n\n";
-		}
-		else {
-			cout << "\t\t\t\t\tPlayer's with 'O' turn\n\n\n";
-		}
-
-		printGrid(squares);
-		
+		printGrid(squares, first);
 		int square = acceptInput(squares) - 1;
 		if (first) {
 			squares[square] = 'X';
@@ -90,6 +101,4 @@ int main() {
 	else {
 		cout << "\n\t\t\t\t\tIt's a draw\n\n";
 	}
-
-
 }
